@@ -2,7 +2,7 @@
 
 A full-stack document editor built on the MERN stack. Users sign up, create documents, write with rich-text formatting, and every change is saved automatically. Documents are private to their owner.
 
-**Live demo:** https://syncdocs-lut9.onrender.com (free hosting: the first load after a quiet period can take up to a minute) · **Demo video:** _add video link_
+**Live demo:** https://syncdocs-lut9.onrender.com (free hosting: the first load after a quiet period can take up to a minute) · **Demo video:** https://drive.google.com/file/d/1h-k8RDa5_FA4pcphw3h5lnKlp94mTH2G/view?usp=sharing
 
 ![Editor](docs/screenshots/editor-desktop.png)
 
