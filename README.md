@@ -33,6 +33,10 @@ SyncDocs is a private document workspace whose core promise is that **what you w
 4. **Manage documents:** browse documents newest first with previews; rename and delete them.
 5. **Detect conflicts:** a save based on an outdated version is rejected with a clear message.
 
+| Landing page | Log in |
+|---|---|
+| ![Landing page](docs/screenshots/landing.png) | ![Log in](docs/screenshots/login.png) |
+
 | Dashboard | Mobile |
 |---|---|
 | ![Dashboard](docs/screenshots/dashboard-desktop.png) | ![Mobile editor](docs/screenshots/editor-mobile.png) |
@@ -40,7 +44,9 @@ SyncDocs is a private document workspace whose core promise is that **what you w
 ## Features
 
 - Email/password accounts with server-side sessions (signup, login, logout)
-- Dashboard of your documents, newest first, with a text preview
+- Landing page explaining the product
+- Dashboard of your documents as cards, newest first, with page previews and search by title or content
+- Live word count in the editor
 - Create, open, rename, and delete documents (delete asks for confirmation)
 - Rich-text editor: headings (H1–H3), bold, italic, bullet and numbered lists, quotes, undo/redo, keyboard shortcuts
 - Autosave 800 ms after typing stops, with a visible status: Saved / Unsaved changes / Saving… / Couldn't save / Changed elsewhere
@@ -88,8 +94,8 @@ In production one Express server serves both the built React app and the `/api` 
 | `api/` | `apiFetch` wrapper and one function per endpoint |
 | `auth/`, `hooks/useAuth.ts` | Current user, shared through React context |
 | `hooks/useAutosave.ts` | Debounced, serialized autosave |
-| `pages/` | Login, Signup, Dashboard, DocumentEditor |
-| `components/` | Navbar, DocumentRow, EditorWorkspace, EditorToolbar, SaveStatus, ProtectedRoute |
+| `pages/` | Landing, Login, Signup, Dashboard, DocumentEditor |
+| `components/` | Navbar, DocumentCard, EditorWorkspace, EditorToolbar, SaveStatus, WordCount, ProtectedRoute |
 
 ### Data model
 
