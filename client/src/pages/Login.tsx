@@ -33,7 +33,8 @@ function Login() {
 
   return (
     <AuthLayout
-      title="Log in"
+      title="Welcome back"
+      subtitle="Log in to pick up where you left off."
       footer={
         <>
           New to SyncDocs?{' '}

@@ -32,6 +32,7 @@ function Signup() {
   return (
     <AuthLayout
       title="Create your account"
+      subtitle="Start writing in under a minute. No credit card, no setup."
       footer={
         <>
           Already have an account?{' '}

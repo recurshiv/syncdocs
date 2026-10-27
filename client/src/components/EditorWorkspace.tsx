@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { EditorContent, useEditor, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileText } from 'lucide-react'
 import { useBlocker, useNavigate } from 'react-router-dom'
 import { useAutosave } from '../hooks/useAutosave.ts'
 import type { DocumentDetail } from '../types/document.ts'
 import EditorToolbar from './EditorToolbar.tsx'
 import SaveStatus from './SaveStatus.tsx'
+import WordCount from './WordCount.tsx'
 
 const DEFAULT_TITLE = 'Untitled document'
 
@@ -69,18 +70,22 @@ function EditorWorkspace({ document }: { document: DocumentDetail }) {
   }, [blocker, saveNow])
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-2 sm:gap-3 sm:px-4">
+    <div className="flex min-h-screen flex-col bg-neutral-100">
+      <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white shadow-xs">
+        <div className="flex h-14 items-center gap-1.5 px-2 sm:gap-3 sm:px-4">
           <button
             type="button"
             onClick={() => navigate('/dashboard')}
             aria-label="Back to dashboard"
             title="Back to dashboard"
-            className="rounded-md p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
           >
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>
+
+          <span className="hidden size-8 shrink-0 items-center justify-center rounded-lg bg-indigo-600 sm:flex" aria-hidden="true">
+            <FileText className="size-4 text-white" />
+          </span>
 
           <input
             aria-label="Document title"
@@ -89,28 +94,36 @@ function EditorWorkspace({ document }: { document: DocumentDetail }) {
             placeholder={DEFAULT_TITLE}
             onChange={(e) => handleTitleChange(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && editor?.commands.focus('start')}
-            className="min-w-0 flex-1 truncate rounded-md px-2 py-1 text-base font-medium outline-none hover:bg-neutral-100 focus:bg-white focus:ring-2 focus:ring-indigo-500/30 sm:text-lg"
+            className="min-w-0 flex-1 truncate rounded-lg border border-transparent px-2 py-1 text-base font-semibold text-neutral-900 outline-none hover:border-neutral-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 sm:text-lg"
           />
 
           <SaveStatus status={status} onRetry={() => void autosave.retry()} />
         </div>
 
         {editor && (
-          <div className="mx-auto max-w-5xl border-t border-neutral-100">
+          <div className="border-t border-neutral-100">
             <EditorToolbar editor={editor} />
           </div>
         )}
       </header>
 
-      <main className="flex-1 px-2 py-6 sm:px-4 sm:py-10">
+      <main className="flex-1 px-2 py-6 sm:px-6 sm:py-10">
         {/* Clicking the page margins focuses the editor, like a real document. */}
         <div
           onClick={(e) => e.target === e.currentTarget && editor?.commands.focus('end')}
-          className="mx-auto min-h-[70vh] max-w-3xl cursor-text rounded-lg border border-neutral-200 bg-white px-5 py-8 shadow-sm sm:px-14 sm:py-12"
+          className="mx-auto min-h-[80vh] max-w-[816px] cursor-text rounded-sm bg-white px-6 py-10 shadow-[0_1px_3px_rgba(0,0,0,0.08),0_8px_24px_-12px_rgba(0,0,0,0.12)] ring-1 ring-neutral-200/80 sm:px-20 sm:py-16"
         >
           <EditorContent editor={editor} />
         </div>
       </main>
+
+      {editor && (
+        <footer className="sticky bottom-0 flex justify-end px-4 pb-3 sm:px-6">
+          <span className="rounded-full border border-neutral-200 bg-white/90 px-3 py-1 shadow-xs backdrop-blur">
+            <WordCount editor={editor} />
+          </span>
+        </footer>
+      )}
 
       {blocker.state === 'blocked' && leaveFailed && (
         <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/30 px-4" role="dialog" aria-modal="true" aria-labelledby="leave-title">

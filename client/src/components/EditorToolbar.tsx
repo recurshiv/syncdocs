@@ -22,12 +22,16 @@ function ToolbarButton({
   return (
     <button
       type="button"
+      // Keep focus in the editor when clicking with the mouse. Otherwise focus
+      // moves to the button, and keys typed right after the click can be lost
+      // before the editor regains focus. Keyboard activation still works.
+      onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
       aria-pressed={active}
       title={shortcut ? `${label} (${shortcut})` : label}
-      className={`rounded-md p-2 transition-colors disabled:opacity-30 ${
+      className={`shrink-0 rounded-lg p-2 transition-colors disabled:opacity-30 disabled:hover:bg-transparent ${
         active ? 'bg-indigo-100 text-indigo-700' : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
       }`}
     >
@@ -68,12 +72,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
   }
 
   return (
-    <div role="toolbar" aria-label="Formatting" className="flex items-center gap-0.5 overflow-x-auto px-2 py-1.5">
+    <div role="toolbar" aria-label="Formatting" className="flex items-center gap-0.5 overflow-x-auto px-2 py-1.5 sm:justify-center">
       <select
         aria-label="Text style"
         value={state.block}
         onChange={(e) => setBlock(e.target.value)}
-        className="mr-1 shrink-0 rounded-md border border-neutral-200 bg-white px-2 py-1.5 text-sm text-neutral-700 outline-none focus:border-indigo-500"
+        className="mr-1 shrink-0 rounded-lg border border-neutral-200 bg-white px-2 py-1.5 text-sm font-medium text-neutral-700 outline-none hover:bg-neutral-50 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15"
       >
         <option value="paragraph">Normal text</option>
         <option value="h1">Heading 1</option>
