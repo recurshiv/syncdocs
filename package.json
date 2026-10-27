@@ -1,0 +1,12 @@
+{
+  "name": "syncdocs",
+  "private": true,
+  "description": "Rich-text document workspace built with MongoDB, Express, React and Node.",
+  "scripts": {
+    "build": "npm ci --prefix client --include=dev && npm run build --prefix client && npm ci --prefix server --include=dev && npm run build --prefix server",
+    "start": "npm start --prefix server"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
